@@ -15,7 +15,14 @@ const CustomerCard = ({ email, name, userId }: Props) => {
   const { loading, error, orders } = useCustomerOrders(userId);
   const navigation = useNavigation<CustomersScreenNavigationProp>();
   return (
-    <TouchableOpacity>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate("MyModal", {
+          name: name,
+          userId: userId,
+        });
+      }}
+    >
       <Card containerStyle={styles.card}>
         <View>
           <View style={styles.rowItems}>
@@ -24,7 +31,7 @@ const CustomerCard = ({ email, name, userId }: Props) => {
               <Text style={styles.idText}>ID: {userId}</Text>
             </View>
             <View style={styles.loading}>
-              <Text style={{ color: "#59c1cc#59c1cc" }}>
+              <Text style={{ color: "#59c1cc" }}>
                 {loading ? "loading..." : `${orders.length}`} x
               </Text>
               <Icon
